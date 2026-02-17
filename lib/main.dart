@@ -13,34 +13,10 @@ Topics explanation:
     6 - Positioned Widget: The Positioned widget in Flutter is used within a Stack widget to position its child widget at a specific location. It allows you to specify the distance from the top, bottom, left, and right edges of the Stack. This widget is useful for creating custom layouts where precise positioning of widgets is required.
     7 - ListView Widget: The ListView widget in Flutter is used to create a scrollable list of widgets. It is commonly used to display a large number of items in a vertical or horizontal list. The ListView widget can be created using various constructors, such as ListView.builder, ListView.separated, and ListView.custom, to efficiently build and manage the list items.
     8 - ListView.builder : The ListView.builder constructor in Flutter is used to create a scrollable list of widgets that are built on demand. It is particularly useful for displaying large lists of items, as it only builds the widgets that are currently visible on the screen, improving performance and reducing memory usage. The ListView.builder takes an itemCount parameter to specify the number of items in the list and an itemBuilder function to define how each item should be built.
+    9 - GridView Widget: The GridView widget in Flutter is used to create a scrollable grid of widgets. It is commonly used to display items in a grid format, such as a photo gallery or a product catalog. The GridView widget can be created using various constructors, such as GridView.count, GridView.extent, and GridView.builder, to efficiently build and manage the grid items.
+    10 - GridView.builder: The GridView.builder constructor in Flutter is used to create a scrollable grid of widgets that are built on demand. Similar to ListView.builder, it is particularly useful for displaying large grids of items, as it only builds the widgets that are currently visible on the screen, improving performance and reducing memory usage. The GridView.builder takes an itemCount parameter to specify the number of items in the grid and an itemBuilder function to define how each item should be built.
 * */
 
-/*
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return  MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Flutter Layout Widgets' , style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold , color: Colors.white),),
-          centerTitle: true,
-          backgroundColor: Colors.blue,
-        ),
-        body: BasicLayout() ,
-
-      ),
-    );
-  }
-}
-
-*/
 
 void main() {
   runApp(const ExamplesSession());
@@ -66,7 +42,7 @@ class ExamplesSession extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.blue,
         ),
-        body: const ListViewBuilderExample(),
+        body: const GridViewBuilderExample(),
       ),
     );
   }
@@ -218,73 +194,45 @@ class ListViewBuilderExample extends StatelessWidget {
 
 
 
-
-/*
-class BasicLayoutPage extends StatelessWidget {
-  const BasicLayoutPage({super.key});
+class GridViewExample extends StatelessWidget {
+  const GridViewExample({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        // Header Row
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.ac_unit, size: 40, color: Colors.blue),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'My Flutter App',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.settings, size: 40),
-            ),
-          ],
-        ),
+    return GridView(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3, // Number of columns
+        mainAxisSpacing: 10, // Vertical spacing between items
+        crossAxisSpacing: 10, // Horizontal spacing between items
+      ),
+      padding: const EdgeInsets.all(10),
+      children: List.generate(20, (index) {
+        return CustomExampleContiner(
+          color: Colors.primaries[index % Colors.primaries.length],
+        );
+      }),
+    );
+  }
+}
 
-        // Profile Card
-        Container(
-          padding: const EdgeInsets.all(16),
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: Colors.blue.shade100,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Column(
-            children: [
-              const CircleAvatar(
-                radius: 40,
-                child: Icon(
-                  Icons.person,
-                  size: 50,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text('John Doe', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              const Text('Flutter Developer', style: TextStyle(fontSize: 16)),
-              const SizedBox(height: 16),
-              // Social Icons Row
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(Icons.facebook, color: Colors.blue),
-                  Icon(Icons.facebook, color: Colors.lightBlue),
-                  Icon(Icons.facebook, color: Colors.blueAccent),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
+class GridViewBuilderExample extends StatelessWidget {
+  const GridViewBuilderExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4, // Number of columns
+        mainAxisSpacing: 10, // Vertical spacing between items
+        crossAxisSpacing: 10, // Horizontal spacing between items
+      ),
+      padding: const EdgeInsets.all(10),
+      itemCount: 60,
+      itemBuilder: (context, index) {
+        return CustomExampleContiner(
+          color: Colors.primaries[index % Colors.primaries.length],
+        );
+      },
     );
   }
 }
@@ -293,7 +241,3 @@ class BasicLayoutPage extends StatelessWidget {
 
 
 
-
-
-
-*/
