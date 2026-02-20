@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class CustomExampleContiner extends StatelessWidget {
   const CustomExampleContiner({
     super.key,
-    this.width = 150,
-    this.height = 150,
+    this.width = 100,
+    this.height = 100,
     this.color = Colors.blueAccent,
   });
   final double? width;

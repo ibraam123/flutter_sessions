@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:session_7_flutter_hult/widgets/custom_example_continer.dart';
-
+import 'package:session_7_flutter_hult/session_seven/widgets/column_example.dart';
 /*
 Topics explanation:
   Part one - Flutter Layout Widgets
@@ -13,34 +12,10 @@ Topics explanation:
     6 - Positioned Widget: The Positioned widget in Flutter is used within a Stack widget to position its child widget at a specific location. It allows you to specify the distance from the top, bottom, left, and right edges of the Stack. This widget is useful for creating custom layouts where precise positioning of widgets is required.
     7 - ListView Widget: The ListView widget in Flutter is used to create a scrollable list of widgets. It is commonly used to display a large number of items in a vertical or horizontal list. The ListView widget can be created using various constructors, such as ListView.builder, ListView.separated, and ListView.custom, to efficiently build and manage the list items.
     8 - ListView.builder : The ListView.builder constructor in Flutter is used to create a scrollable list of widgets that are built on demand. It is particularly useful for displaying large lists of items, as it only builds the widgets that are currently visible on the screen, improving performance and reducing memory usage. The ListView.builder takes an itemCount parameter to specify the number of items in the list and an itemBuilder function to define how each item should be built.
+    9 - GridView Widget: The GridView widget in Flutter is used to create a scrollable grid of widgets. It is commonly used to display items in a grid format, such as a photo gallery or a product catalog. The GridView widget can be created using various constructors, such as GridView.count, GridView.extent, and GridView.builder, to efficiently build and manage the grid items.
+    10 - GridView.builder: The GridView.builder constructor in Flutter is used to create a scrollable grid of widgets that are built on demand. Similar to ListView.builder, it is particularly useful for displaying large grids of items, as it only builds the widgets that are currently visible on the screen, improving performance and reducing memory usage. The GridView.builder takes an itemCount parameter to specify the number of items in the grid and an itemBuilder function to define how each item should be built.
 * */
 
-/*
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return  MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Flutter Layout Widgets' , style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold , color: Colors.white),),
-          centerTitle: true,
-          backgroundColor: Colors.blue,
-        ),
-        body: BasicLayout() ,
-
-      ),
-    );
-  }
-}
-
-*/
 
 void main() {
   runApp(const ExamplesSession());
@@ -66,30 +41,7 @@ class ExamplesSession extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.blue,
         ),
-        body: const ListViewBuilderExample(),
-      ),
-    );
-  }
-}
-
-// Column Example
-class ColumnExample extends StatelessWidget {
-  const ColumnExample({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: const Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CustomExampleContiner(),
-          SizedBox(height: 16),
-          CustomExampleContiner(),
-          SizedBox(height: 16),
-          CustomExampleContiner(),
-        ],
+        body: Center(child: const ColumnExample()),
       ),
     );
   }

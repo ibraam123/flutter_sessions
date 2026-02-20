@@ -14,7 +14,7 @@ class StackAndPositioned extends StatelessWidget {
           child: Container(
             width: 200,
             height: 200,
-            color: Colors.blue.withValues(alpha: 0.5),
+            color: Colors.blue,
           ),
         ),
         Positioned(
@@ -23,7 +23,7 @@ class StackAndPositioned extends StatelessWidget {
           child: Container(
             width: 200,
             height: 200,
-            color: Colors.red.withValues(alpha: 0.5),
+            color: Colors.red,
           ),
         ),
         Positioned(

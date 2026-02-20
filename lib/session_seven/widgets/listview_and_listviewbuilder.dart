@@ -5,7 +5,7 @@ import 'custom_container.dart';
 class ListViewAndListViewBuilder extends StatelessWidget {
   const ListViewAndListViewBuilder({super.key, required this.isBuilder});
 
-  // Implement ListView, ListView.builder
+  // check if want show the listview builder or listview
   final bool isBuilder;
 
   @override
