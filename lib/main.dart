@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:session_7_flutter_hult/session_seven/widgets/column_example.dart';
+import 'package:session_7_flutter_hult/session_eight/screens/home_page.dart';
+
+
 /*
-Topics explanation:
+Session 7 Topics explanation:
   Part one - Flutter Layout Widgets
     1 - Column Widget: The Column widget in Flutter is used to arrange its child widgets in a vertical direction. It is a part of the Flutter layout system and is commonly used to create vertical layouts. The Column widget takes a list of child widgets and displays them one below the other.
     2 - MainAxisAlignment: MainAxisAlignment is an enum in Flutter that defines how the children of a Column or Row widget are aligned along the main axis (vertical for Column and horizontal for Row). It provides several options such as start, end, center, spaceBetween, spaceAround, and spaceEvenly to control the alignment of child widgets.
@@ -16,7 +18,17 @@ Topics explanation:
     10 - GridView.builder: The GridView.builder constructor in Flutter is used to create a scrollable grid of widgets that are built on demand. Similar to ListView.builder, it is particularly useful for displaying large grids of items, as it only builds the widgets that are currently visible on the screen, improving performance and reducing memory usage. The GridView.builder takes an itemCount parameter to specify the number of items in the grid and an itemBuilder function to define how each item should be built.
 * */
 
-
+/*
+Session 8 Topics explanation:
+  Part One - User Input
+    1 - TextField Widget: The TextField widget in Flutter is used to create a text input field where users can enter and edit text. It provides various properties to customize its appearance and behavior, such as decoration, keyboardType, obscureText, and onChanged. The TextField widget is commonly used in forms, search bars, and any other scenario where user input is required.
+    2 - Buttons Widget: Flutter provides several types of buttons, such as ElevatedButton, TextButton, and IconButton, to allow users to interact with the app. Each button type has its own style and behavior, and they can be customized using properties like onPressed, child, style, and more. Buttons are essential for triggering actions and navigating through the app.
+    3 - GestureDetector Widget: The GestureDetector widget in Flutter is used to detect and respond to user gestures, such as taps, drags, and swipes. It provides various callback properties, such as onTap, onDoubleTap, onLongPress, and onPanUpdate, to handle different types of gestures. The GestureDetector widget is commonly used to add interactivity to widgets that do not have built-in gesture handling, allowing you to create custom interactions and animations.
+  Part Two - State Management
+    4 - StatefulWidget: The StatefulWidget in Flutter is a widget that has mutable state. It allows you to create widgets that can change their appearance or behavior based on user interactions or other events. A StatefulWidget consists of two classes: the StatefulWidget class itself, which is immutable, and the State class, which holds the mutable state and defines the build method to create the widget's UI.
+    5 - setState Method: The setState method in Flutter is used to notify the framework that the internal state of a StatefulWidget has changed. When you call setState, it triggers a rebuild of the widget, allowing the UI to reflect the updated state. The setState method takes a callback function where you can update the state variables, and it should be called whenever you want to update the UI based on changes in the state.
+    6 - LifeCycle Methods: Lifecycle methods in Flutter are special methods that are called at different stages of a widget's lifecycle. They allow you to perform specific actions when a widget is created, updated, or destroyed. Some common lifecycle methods include initState (called when the widget is first created), didUpdateWidget (called when the widget is updated), and dispose (called when the widget is removed from the widget tree). These methods are useful for managing resources, initializing data, and cleaning up when a widget is no longer needed.
+* */
 
 void main() {
   runApp(const ExamplesSession());
@@ -29,22 +41,12 @@ class ExamplesSession extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Flutter Layout Widgets',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.blue,
-        ),
-        body: Center(child: const ColumnExample()),
-      ),
+      home: HomePage()  ,
     );
   }
 }
+
+
+
+
 
