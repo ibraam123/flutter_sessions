@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:session_7_flutter_hult/session_eight/screens/home_page.dart';
-
+import 'package:session_7_flutter_hult/session_eight/screens/profile_screen.dart';
+import 'package:session_7_flutter_hult/session_eight/tasks/profile_app.dart';
 
 /*
 Session 7 Topics explanation:
@@ -34,17 +34,55 @@ void main() {
   runApp(const ExamplesSession());
 }
 
-class ExamplesSession extends StatelessWidget {
+class ExamplesSession extends StatefulWidget {
   const ExamplesSession({super.key});
+
+  @override
+  State<ExamplesSession> createState() => _ExamplesSessionState();
+}
+
+class _ExamplesSessionState extends State<ExamplesSession> {
+
+  List<Widget> option = [
+    ProfileApp(),
+    ProfileScreen()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage()  ,
+      home: option[1],
     );
   }
 }
+
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({super.key, this.onSubmit});
+  final void Function(String)? onSubmit;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      onSubmitted: onSubmit,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.person),
+        labelText: "Enter Your First Name",
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey, width: 1 , style: BorderStyle.solid),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue, width: 2 , style: BorderStyle.solid),
+          borderRadius: BorderRadius.circular(8),
+        ),
+
+      ),
+    );
+  }
+}
+
+
 
 
 

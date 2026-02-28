@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/column_fields.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,13 +10,13 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Assignment Solution",
+          "Session 8",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Color(0xff4ec7b9),
         foregroundColor: Colors.white,
       ),
-      body: ColumnFields(),
+     // body: // ColumnFields(),
     );
   }
 }

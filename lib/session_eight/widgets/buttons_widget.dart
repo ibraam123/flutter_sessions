@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 // Buttons Widget Example
 class ButtonsWidgets extends StatelessWidget {
-  const ButtonsWidgets({super.key , required this.buttonType});
+  const ButtonsWidgets({super.key , required this.buttonType, required this.name, required this.onTap});
   final String buttonType;
+  final String name;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +19,8 @@ class ButtonsWidgets extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        onPressed: () {
-          // Handle button press
-          print('ElevatedButton pressed');
-        },
-        child: const Text('Elevated Button'),
+        onPressed: onTap,
+        child: Text(name),
       );
     } else if (buttonType == 'TextButton') {
       return TextButton(
@@ -32,11 +31,8 @@ class ButtonsWidgets extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        onPressed: () {
-          // Handle button press
-          print('TextButton pressed');
-        },
-        child: const Text('Text Button'),
+        onPressed: onTap,
+        child: Text(name),
       );
     } else if (buttonType == 'IconButton') {
       return IconButton(

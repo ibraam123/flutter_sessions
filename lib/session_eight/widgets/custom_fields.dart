@@ -9,28 +9,31 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        prefixIcon: icon,
-        labelText: labelText,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-          borderSide: BorderSide(color: Colors.grey.shade400, width: 1.0),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          borderSide: BorderSide(color: Colors.blue, width: 2.0),
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextField(
+        decoration: InputDecoration(
+          prefixIcon: icon,
+          labelText: labelText,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            borderSide: BorderSide(color: Colors.grey.shade400, width: 1.0),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            borderSide: BorderSide(color: Colors.blue, width: 2.0),
+          ),
 
+        ),
+        obscureText: false // Set to true for password fields to hide the input text
+        ,
+        onChanged: onChanged
+        ,
+        onSubmitted: (value) {
+          // Handle text submission here
+          print('Text submitted: $value');
+        },
       ),
-      obscureText: false // Set to true for password fields to hide the input text
-      ,
-      onChanged: onChanged
-      ,
-      onSubmitted: (value) {
-        // Handle text submission here
-        print('Text submitted: $value');
-      },
     );
   }
 }

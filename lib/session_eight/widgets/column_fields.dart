@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
 
-import 'buttons_widget.dart';
-import 'custom_fields.dart';
-
-
+/*
 // TextField and Buttons Widgets Example
 class ColumnFields extends StatelessWidget {
   const ColumnFields({super.key});
@@ -28,3 +24,4 @@ class ColumnFields extends StatelessWidget {
   }
 }
 
+*/
