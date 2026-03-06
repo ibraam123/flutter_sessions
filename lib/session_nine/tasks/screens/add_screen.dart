@@ -13,7 +13,23 @@ class AddedTaskScreen extends StatefulWidget {
 }
 
 class _AddedTaskScreenState extends State<AddedTaskScreen> {
-  String text = "";
+  late final TextEditingController taskText ;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    taskText = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    taskText.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return  Center(
@@ -23,9 +39,7 @@ class _AddedTaskScreenState extends State<AddedTaskScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-              onChanged: (value) {
-                text = value;
-              },
+              controller: taskText,
               decoration: InputDecoration(
                 labelText: "Title",
                 labelStyle: TextStyle(
@@ -51,7 +65,7 @@ class _AddedTaskScreenState extends State<AddedTaskScreen> {
                   SnackBar(
                     content: Text(
                       widget.taskRepo.addTask(
-                        TaskModel(text: text),
+                        TaskModel(text: taskText.text),
                       ),
                       style: TextStyle(
                         fontSize: 16,
@@ -66,6 +80,8 @@ class _AddedTaskScreenState extends State<AddedTaskScreen> {
                     ),
                   ),
                 );
+
+                taskText.clear();
               },
             ),
           ],

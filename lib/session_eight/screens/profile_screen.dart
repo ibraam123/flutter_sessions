@@ -14,8 +14,23 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   String name = "Guest";
-  String tempName = "";
   int count = 0;
+
+  late final TextEditingController nameController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    nameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    nameController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             CustomTextField(
               icon: const Icon(Icons.person),
               labelText: "Enter your name",
-              onChanged: (value) {
-                tempName = value;
-              },
+              controller: nameController,
             ),
             const SizedBox(height: 48),
             CircleAvatar(
@@ -81,12 +94,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   buttonType: "ElevatedButton",
                   name: "Update Name",
                   onTap: () {
-                    if(tempName != ""){
-                      name = tempName;
+                    if(nameController.text.isNotEmpty){
+                      name = nameController.text;
                       setState(() {
 
                       });
                     }
+                    nameController.clear();
                   },
                 ),
                 SizedBox(width: 8),
@@ -124,9 +138,20 @@ class ProfileViewBodyTask extends StatefulWidget {
 }
 
 class _ProfileViewBodyTaskState extends State<ProfileViewBodyTask> {
+
   String name = "Guest";
-  String tempName = "";
+
+  late final TextEditingController nameController;
+
   int count = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -138,8 +163,9 @@ class _ProfileViewBodyTaskState extends State<ProfileViewBodyTask> {
           CustomTextField(
             icon: const Icon(Icons.person),
             labelText: "Enter your name",
+            controller: nameController,
             onChanged: (value) {
-              tempName = value;
+              name = value;
             },
           ),
           const SizedBox(height: 48),
@@ -183,12 +209,9 @@ class _ProfileViewBodyTaskState extends State<ProfileViewBodyTask> {
                 buttonType: "ElevatedButton",
                 name: "Update Name",
                 onTap: () {
-                  if(tempName != ""){
-                    name = tempName;
-                    setState(() {
-
-                    });
-                  }
+                  setState(() {
+                    name = nameController.text;
+                  });
                 },
               ),
               SizedBox(width: 8),
@@ -213,5 +236,12 @@ class _ProfileViewBodyTaskState extends State<ProfileViewBodyTask> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    nameController.dispose();
   }
 }

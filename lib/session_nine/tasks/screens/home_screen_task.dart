@@ -39,22 +39,17 @@ class HomeScreenTask extends StatelessWidget {
   }
 }
 */
-class HomeBodyTask extends StatefulWidget {
+class HomeBodyTask extends StatelessWidget {
   const HomeBodyTask({super.key, required this.taskRepo});
   final TaskRepo taskRepo;
 
   @override
-  State<HomeBodyTask> createState() => _HomeBodyState();
-}
-
-class _HomeBodyState extends State<HomeBodyTask> {
-  @override
   Widget build(BuildContext context) {
-    return widget.taskRepo.tasks.isNotEmpty? ListView.builder(
+    return taskRepo.tasks.isNotEmpty? ListView.builder(
       padding: EdgeInsetsGeometry.all(16),
-      itemCount: widget.taskRepo.tasks.length,
+      itemCount: taskRepo.tasks.length,
       itemBuilder: (context, index) {
-        return CustomTaskContainer(task: widget.taskRepo.tasks[index] , taskRepo: widget.taskRepo,);
+        return CustomTaskContainer(task: taskRepo.tasks[index] , taskRepo: taskRepo,);
       },
     ): Center(
       child: Text(

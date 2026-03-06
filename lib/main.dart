@@ -48,7 +48,6 @@ Session 9 Topics explanation:
     4 - pushNamed: The pushNamed function is used to navigate to a new screen using a named route. It takes the name of the route as an argument and pushes it onto the navigation stack, allowing for easier navigation without having to reference the route class directly.
 * */
 
-
 void main() {
   runApp(const ExamplesSession());
 }
@@ -63,9 +62,7 @@ class ExamplesSession extends StatelessWidget {
       home: MainScreenTask(),
     );
   }
-
 }
-
 
 
 
