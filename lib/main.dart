@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:session_7_flutter_hult/session_nine/tasks/screens/main_screen_task.dart';
+import 'package:session_7_flutter_hult/session_10_11_apis/views/home_view.dart';
 
 /*
 Session 7 Topics explanation:
@@ -48,6 +48,24 @@ Session 9 Topics explanation:
     4 - pushNamed: The pushNamed function is used to navigate to a new screen using a named route. It takes the name of the route as an argument and pushes it onto the navigation stack, allowing for easier navigation without having to reference the route class directly.
 * */
 
+/*
+Session 10 Topics explanation:
+  Part One - What is API and How to Use It
+    1 - API (Application Programming Interface): An API is a set of rules and protocols that allows different software applications to communicate with each other. It defines how requests and responses should be structured, allowing developers to interact with external services and access data or functionality provided by those services.
+    2 - HTTP Requests: HTTP requests are used to communicate with APIs over the internet. The most common types of HTTP requests are GET (to retrieve data), POST (to send data), PUT (to update data), and DELETE (to remove data). In Flutter, you can use the http package to make HTTP requests and interact with APIs.
+    3 - HTTP Response: An HTTP response is the data sent back by the server in response to an HTTP request. It typically includes a status code (indicating the success or failure of the request) and a body (containing the data or message returned by the server). In Flutter, you can handle HTTP responses using the http package and process the data accordingly.
+    4 - HTTP Methods: HTTP methods are the different types of requests that can be made to an API. The most common HTTP methods are GET, POST, PUT, and DELETE, each serving a specific purpose in interacting with the API. GET is used to retrieve data, POST is used to send data, PUT is used to update existing data, and DELETE is used to remove data from the server.
+    5 - JSON (JavaScript Object Notation): JSON is a lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate. It is commonly used for transmitting data between a server and a client in web applications. In Flutter, you can use the dart:convert library to encode and decode JSON data when working with APIs.
+
+  Part Two - Working with APIs in Flutter
+    6 - Using the Dio Package: The Dio package is a powerful HTTP client for Dart that provides features such as interceptors, global configuration, and support for various request types. It allows you to make HTTP requests and handle responses in a more efficient and customizable way compared to the http package. In Flutter, you can use the Dio package to interact with APIs and manage your network requests effectively.
+    7 - Fetching Data from an API: To fetch data from an API in Flutter, you can use the Dio package to make a GET request to the desired endpoint. You can then handle the response by checking the status code and processing the returned data accordingly. This typically involves parsing the JSON response and updating the UI to display the fetched data.
+    8 - Displaying Data in a ListView: Once you have fetched data from an API, you can display it in a ListView widget in Flutter. The ListView widget allows you to create a scrollable list of items, which can be built using the ListView.builder constructor for efficient rendering. You can pass the fetched data to the ListView.builder and use it to create individual list items, allowing users to view the data in a structured and organized manner.
+    9 - Error Handling: When working with APIs in Flutter, it is important to implement error handling to manage potential issues that may arise during network requests. This can include handling exceptions, checking for non-successful status codes, and providing feedback to the user when an error occurs. The Dio package provides built-in support for error handling, allowing you to catch and manage errors effectively in your API interactions.
+    10 - Best Practices for API Integration: When integrating APIs in Flutter, it is important to follow best practices to ensure a smooth and efficient experience. This includes using asynchronous programming to handle network requests, implementing proper error handling, optimizing performance by caching data when appropriate, and keeping your code organized and maintainable. Additionally, it is important to consider security aspects when working with APIs, such as using secure connections (HTTPS) and handling sensitive data appropriately.
+* */
+
+
 void main() {
   runApp(const ExamplesSession());
 }
@@ -55,11 +73,14 @@ void main() {
 class ExamplesSession extends StatelessWidget {
   const ExamplesSession({super.key});
 
+  
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainScreenTask(),
+      home: HomeView(),
     );
   }
 }
