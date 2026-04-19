@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:session_7_flutter_hult/session_10_11_apis/views/home_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:session_7_flutter_hult/session_12_state_mangment/views/session_12_main_view.dart';
+import 'package:session_7_flutter_hult/session_12_state_mangment/assignment/cubit/weather_cubit.dart';
+import 'package:session_7_flutter_hult/session_12_state_mangment/assignment/services/weather_service.dart';
 
 /*
 Session 7 Topics explanation:
@@ -49,7 +52,7 @@ Session 9 Topics explanation:
 * */
 
 /*
-Session 10 Topics explanation:
+Session 10,11 Topics explanation:
   Part One - What is API and How to Use It
     1 - API (Application Programming Interface): An API is a set of rules and protocols that allows different software applications to communicate with each other. It defines how requests and responses should be structured, allowing developers to interact with external services and access data or functionality provided by those services.
     2 - HTTP Requests: HTTP requests are used to communicate with APIs over the internet. The most common types of HTTP requests are GET (to retrieve data), POST (to send data), PUT (to update data), and DELETE (to remove data). In Flutter, you can use the http package to make HTTP requests and interact with APIs.
@@ -65,6 +68,14 @@ Session 10 Topics explanation:
     10 - Best Practices for API Integration: When integrating APIs in Flutter, it is important to follow best practices to ensure a smooth and efficient experience. This includes using asynchronous programming to handle network requests, implementing proper error handling, optimizing performance by caching data when appropriate, and keeping your code organized and maintainable. Additionally, it is important to consider security aspects when working with APIs, such as using secure connections (HTTPS) and handling sensitive data appropriately.
 * */
 
+/*
+Session 12 Topics explanation:
+
+   1 - What is State Management: State management refers to the way an application manages and updates its state, which is the data that represents the current condition of the app. In Flutter, state management is crucial for building responsive and interactive applications, as it allows you to manage changes in the UI based on user interactions or other events.
+   2 - setState Method: The setState method is a built-in function in Flutter that allows you to update the state of a StatefulWidget. When you call setState, it triggers a rebuild of the widget, allowing the UI to reflect the updated state. This method is commonly used for managing local state within a widget.
+   3 - Cubits: Cubits are a lightweight state management solution in Flutter that is part of the Bloc library. A Cubit is a simple class that extends the Cubit base class and manages a single piece of state. It provides methods to emit new states and allows you to listen for state changes in your UI.
+   4 - Bloc: Bloc (Business Logic Component) is a more robust state management solution in Flutter that is also part of the Bloc library. It allows you to manage complex state and business logic in a structured way. A Bloc consists of events, states, and a Bloc class that handles the logic for transitioning between states based on incoming events. It provides a clear separation of concerns and promotes a reactive programming style.
+* */
 
 void main() {
   runApp(const ExamplesSession());
@@ -73,21 +84,15 @@ void main() {
 class ExamplesSession extends StatelessWidget {
   const ExamplesSession({super.key});
 
-  
-
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeView(),
+    return BlocProvider(
+      create: (context) => WeatherCubit(WeatherService()),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false, home: Session12MainView()),
     );
   }
 }
-
-
-
-
 
 // Custom Field Example
 

@@ -16,4 +16,6 @@ class ArticleModel {
       image: json['urlToImage'],
     );
   }
+
+
 }

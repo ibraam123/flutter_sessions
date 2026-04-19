@@ -14,7 +14,7 @@ class TodosScreen extends StatelessWidget {
       ),
       body: FutureBuilder<List<TodoModel>>(
         future: TodoApiService().getTodos(),
-        builder: (context,AsyncSnapshot snapshot) {
+        builder: (context,snapshot) {
           /// Loading
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -24,8 +24,11 @@ class TodosScreen extends StatelessWidget {
 
           /// Error
           if (snapshot.hasError) {
-            return Center(
-              child: Text("Error: ${snapshot.error}"),
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text("Error: ${snapshot.error}"),
+              ),
             );
           }
 

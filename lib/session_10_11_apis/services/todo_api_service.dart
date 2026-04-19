@@ -7,7 +7,7 @@ class TodoApiService {
   /// GET Todos
   Future<List<TodoModel>> getTodos() async {
     try {
-      final response = await _dio.get('https://dummyjson.com/todos');
+      final Response response = await _dio.get("https://dummyjson.com/todos");
 
       Map<String, dynamic> todosJson = response.data;
 
@@ -15,17 +15,16 @@ class TodoApiService {
 
       List<TodoModel> todosList = [];
 
-      for (var todoJson in todos) {
-        todosList.add(TodoModel.fromJson(todoJson));
+      for (var todo in todos) {
+        todosList.add(TodoModel.fromJson(todo));
       }
 
       return todosList;
     } catch (e) {
-      throw Exception("Failed to load todos: $e");
+      throw Exception("Failed to load todos");
     }
   }
 
-  /*
   /// POST Todo
   Future<TodoModel> createTodo(TodoModel todo) async {
     try {
@@ -67,5 +66,5 @@ class TodoApiService {
     } catch (e) {
       throw Exception("Failed to delete todo: $e");
     }
-  }*/
+  }
 }
