@@ -1,17 +1,18 @@
 
-
-class CounterState {
-  final int count;
-
-  CounterState({required this.count});
+class CounterStat {
+  int count;
+  CounterStat(this.count);
 }
 
-class CounterIncrementState extends CounterState {
-  CounterIncrementState({required super.count});
+class IntialState extends CounterStat {
+  IntialState(super.count);
 }
 
-class CounterDecrementState extends CounterState {
-  CounterDecrementState({required super.count});
+class IncrementCounterState extends CounterStat {
+  IncrementCounterState(super.count);
+
 }
 
-
+class DecrementCounterState extends CounterStat {
+  DecrementCounterState(super.count);
+}

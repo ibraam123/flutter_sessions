@@ -1,19 +1,22 @@
-import '../../../models/news_model.dart';
+part of 'news_cubit.dart';
 
-abstract class NewsState {
+@immutable
+sealed class NewsState {}
+
+final class NewsInitial extends NewsState {
 
 }
 
-class NewsInitial extends NewsState {}
+final class NewsLoading extends NewsState {
 
-class NewsLoading extends NewsState {}
-
-class NewsSuccess extends NewsState {
-  final List<NewsModel> news;
-  NewsSuccess({required this.news});
 }
 
-class NewsError extends NewsState {
-  final String message;
-  NewsError({required this.message});
+final class NewsLoaded extends NewsState {
+  final List<NewsModel> newsList;
+  NewsLoaded(this.newsList);
+}
+
+final class NewsError extends NewsState {
+  final String errorMsg;
+  NewsError(this.errorMsg);
 }

@@ -1,17 +1,16 @@
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:session_7_flutter_hult/session_12_state_mangment/logic/cubits/counter/counter_state.dart';
 
-class CounterCubit extends Cubit<int> {
-  CounterCubit() : super(
-    0
-  );
+class CounterCubit extends Cubit<CounterStat>{
+  CounterCubit() : super(IntialState(0));
 
-  // Increment state
-  void increment() => emit(
-    state + 1
-  );
-  
-  // Decrement state
-  void decrement() => emit(
-    state - 1
-  );
+  void increment(){
+    emit(IncrementCounterState(state.count + 1));
+  }
+
+  void decrement(){
+    emit(DecrementCounterState(state.count - 1));
+  }
+
 }
