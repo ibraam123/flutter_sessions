@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../logic/posts_cubit/posts_cubit.dart';
-import '../logic/saved_posts_cubit/saved_posts_cubit.dart';
-import '../widgets/post_card.dart';
-import 'post_details_screen.dart';
+import 'package:session_7_flutter_hult/session_14_local_storage/views/post_details_screen_practise.dart';
+import '../logic/posts_cubit/posts_cubit_practise.dart';
+import '../widgets/post_card_practise.dart';
 
-class HomePostsScreen extends StatefulWidget {
-  const HomePostsScreen({super.key});
+class HomePostsScreenPractise extends StatefulWidget {
+  const HomePostsScreenPractise({super.key});
 
   @override
-  State<HomePostsScreen> createState() => _HomeScreenState();
+  State<HomePostsScreenPractise> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomePostsScreen> {
+class _HomeScreenState extends State<HomePostsScreenPractise> {
 
   @override
   void initState() {
@@ -32,7 +31,7 @@ class _HomeScreenState extends State<HomePostsScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      body: BlocBuilder<PostsCubit, PostsState>(
+      body: BlocBuilder<PostsCubitPractise, PostsStatePractise>(
         builder: (context, state) {
           if (state is PostsLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -44,18 +43,17 @@ class _HomeScreenState extends State<HomePostsScreen> {
               itemCount: posts.length,
               itemBuilder: (context, index) {
                 final post = posts[index];
-                return PostCard(
+                return PostCardPractise(
                   post: post,
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PostDetailsScreen(post: post),
+                        builder: (context) => PostDetailsScreenPractise(post: post),
                       ),
                     );
                   },
                   onSave: () {
-                    context.read<SavedPostsCubit>().savePost(post);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Post saved locally!')),
                     );

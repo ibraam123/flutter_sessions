@@ -1,27 +1,157 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:session_7_flutter_hult/revision/views/home_view.dart';
-import 'package:session_7_flutter_hult/session_13_firebase/cubits/auth_cubit.dart';
-import 'package:session_7_flutter_hult/session_13_firebase/screens/home_screen.dart';
-import 'package:session_7_flutter_hult/session_13_firebase/screens/login_screen.dart';
+import 'package:session_7_flutter_hult/revision/logic/posts_cubit/posts_cubit.dart';
+import 'package:session_7_flutter_hult/revision/logic/saved_posts_cubit/saved_posts_cubit.dart';
+import 'package:session_7_flutter_hult/revision/services/api_service.dart';
+import 'package:session_7_flutter_hult/revision/views/main_layout.dart';
+import 'package:session_7_flutter_hult/revision/services/hive_service.dart';
+
+/*
+Session 7 Topics explanation:
+  Part one - Flutter Layout Widgets
+    1 - Column Widget: The Column widget in Flutter is used to arrange its child widgets in a vertical direction. It is a part of the Flutter layout system and is commonly used to create vertical layouts. The Column widget takes a list of child widgets and displays them one below the other.
+    2 - MainAxisAlignment: MainAxisAlignment is an enum in Flutter that defines how the children of a Column or Row widget are aligned along the main axis (vertical for Column and horizontal for Row). It provides several options such as start, end, center, spaceBetween, spaceAround, and spaceEvenly to control the alignment of child widgets.
+    3 - CrossAxisAlignment: CrossAxisAlignment is another enum in Flutter that defines how the children of a Column or Row widget are aligned along the cross axis (horizontal for Column and vertical for Row). It provides options such as start, end, center, stretch, and baseline to control the alignment of child widgets.
+    4 - Row Widget: The Row widget in Flutter is used to arrange its child widgets in a horizontal direction. Similar to the Column widget, it is part of the Flutter layout system and is commonly used to create horizontal layouts. The Row widget takes a list of child widgets and displays them side by side.
+  Part two - Advanced Layout Widgets
+    5 - Stack Widget (Explain stack container |_|): The Stack widget in Flutter is used to overlay multiple child widgets on top of each other. It allows you to position widgets relative to each other using the Positioned widget or by using alignment properties. The Stack widget is useful for creating complex layouts where widgets need to overlap or be layered.
+    6 - Positioned Widget: The Positioned widget in Flutter is used within a Stack widget to position its child widget at a specific location. It allows you to specify the distance from the top, bottom, left, and right edges of the Stack. This widget is useful for creating custom layouts where precise positioning of widgets is required.
+    7 - ListView Widget: The ListView widget in Flutter is used to create a scrollable list of widgets. It is commonly used to display a large number of items in a vertical or horizontal list. The ListView widget can be created using various constructors, such as ListView.builder, ListView.separated, and ListView.custom, to efficiently build and manage the list items.
+    8 - ListView.builder : The ListView.builder constructor in Flutter is used to create a scrollable list of widgets that are built on demand. It is particularly useful for displaying large lists of items, as it only builds the widgets that are currently visible on the screen, improving performance and reducing memory usage. The ListView.builder takes an itemCount parameter to specify the number of items in the list and an itemBuilder function to define how each item should be built.
+    9 - GridView Widget: The GridView widget in Flutter is used to create a scrollable grid of widgets. It is commonly used to display items in a grid format, such as a photo gallery or a product catalog. The GridView widget can be created using various constructors, such as GridView.count, GridView.extent, and GridView.builder, to efficiently build and manage the grid items.
+    10 - GridView.builder: The GridView.builder constructor in Flutter is used to create a scrollable grid of widgets that are built on demand. Similar to ListView.builder, it is particularly useful for displaying large grids of items, as it only builds the widgets that are currently visible on the screen, improving performance and reducing memory usage. The GridView.builder takes an itemCount parameter to specify the number of items in the grid and an itemBuilder function to define how each item should be built.
+* */
+
+/*
+Session 8 Topics explanation:
+  Part One - User Input
+    1 - TextField Widget: The TextField widget in Flutter is used to create a text input field where users can enter and edit text. It provides various properties to customize its appearance and behavior, such as decoration, keyboardType, obscureText, and onChanged. The TextField widget is commonly used in forms, search bars, and any other scenario where user input is required.
+    2 - Buttons Widget: Flutter provides several types of buttons, such as ElevatedButton, TextButton, and IconButton, to allow users to interact with the app. Each button type has its own style and behavior, and they can be customized using properties like onPressed, child, style, and more. Buttons are essential for triggering actions and navigating through the app.
+    3 - GestureDetector Widget: The GestureDetector widget in Flutter is used to detect and respond to user gestures, such as taps, drags, and swipes. It provides various callback properties, such as onTap, onDoubleTap, onLongPress, and onPanUpdate, to handle different types of gestures. The GestureDetector widget is commonly used to add interactivity to widgets that do not have built-in gesture handling, allowing you to create custom interactions and animations.
+  Part Two - State Management
+    4 - StatefulWidget: The StatefulWidget in Flutter is a widget that has mutable state. It allows you to create widgets that can change their appearance or behavior based on user interactions or other events. A StatefulWidget consists of two classes: the StatefulWidget class itself, which is immutable, and the State class, which holds the mutable state and defines the build method to create the widget's UI.
+    5 - setState Method: The setState method in Flutter is used to notify the framework that the internal state of a StatefulWidget has changed. When you call setState, it triggers a rebuild of the widget, allowing the UI to reflect the updated state. The setState method takes a callback function where you can update the state variables, and it should be called whenever you want to update the UI based on changes in the state.
+    6 - LifeCycle Methods: Lifecycle methods in Flutter are special methods that are called at different stages of a widget's lifecycle. They allow you to perform specific actions when a widget is created, updated, or destroyed. Some common lifecycle methods include initState (called when the widget is first created), didUpdateWidget (called when the widget is updated), and dispose (called when the widget is removed from the widget tree). These methods are useful for managing resources, initializing data, and cleaning up when a widget is no longer needed.
+* */
+
+/*
+Session 9 Topics explanation:
+  Part One - Navigation and Routing
+    1 - Navigator Widget: The Navigator widget in Flutter is used to manage a stack of routes (screens) in an app. It allows you to navigate between different screens by pushing and popping routes onto the stack. The Navigator widget provides methods such as push, pop, and pushReplacement to control the navigation flow in your app.
+    2 - Routes: In Flutter, a route is a screen or page that can be navigated to. Routes are typically defined as classes that extend StatelessWidget or StatefulWidget. You can create routes for different screens in your app and use the Navigator widget to navigate between them.
+    3 - Named Routes: Named routes in Flutter allow you to define routes with a specific name, making it easier to navigate to them without having to reference the route class directly. You can define named routes in the MaterialApp widget using the routes property, and then navigate to them using the Navigator.pushNamed method.
+    4 - Passing Data Between Screens By Constructor: In Flutter, you can pass data between screens by including parameters in the constructor of the destination screen. When navigating to a new screen, you can create an instance of the destination screen and pass the required data through its constructor. This allows you to share information between screens and create a more dynamic user experience.
+  Part Two - Bottom Navigation Bar and Drawer
+    6 - BottomNavigationBar Widget: The BottomNavigationBar widget in Flutter is used to create a bottom navigation bar that allows users to navigate between different sections of an app. It typically consists of multiple items, each representing a different screen or section. The BottomNavigationBar widget provides properties such as currentIndex and onTap to manage the selected item and handle navigation.
+    7 - Drawer Widget: The Drawer widget in Flutter is used to create a side navigation drawer that can be opened by swiping from the left edge of the screen or by tapping on an icon. It typically contains a list of navigation options or links to different screens in the app. The Drawer widget can be customized with various properties, such as child, backgroundColor, and more, to create a unique navigation experience for your app.
+    8 - Snackbar Widget: The Snackbar widget in Flutter is used to display brief messages at the bottom of the screen. It is typically used to provide feedback to users after an action has been performed, such as showing a confirmation message after a form submission or displaying an error message when something goes wrong. The Snackbar widget can be customized with properties such as content, duration, and action to create a more engaging user experience.
+
+  Functions Of Navigation:
+    1 - push: The push function is used to navigate to a new screen by adding a new route to the navigation stack. It takes a route as an argument and pushes it onto the stack, allowing the user to navigate back to the previous screen using the back button.
+    2 - pop: The pop function is used to navigate back to the previous screen by removing the current route from the navigation stack. It can be called when the user wants to go back or when a certain action is completed on the current screen.
+    3 - pushReplacement: The pushReplacement function is used to replace the current screen with a new one by removing the current route from the navigation stack and pushing a new route onto it. This is useful when you want to navigate to a new screen without allowing the user to go back to the previous one.
+    4 - pushNamed: The pushNamed function is used to navigate to a new screen using a named route. It takes the name of the route as an argument and pushes it onto the navigation stack, allowing for easier navigation without having to reference the route class directly.
+* */
+
+/*
+Session 10 Topics explanation:
+  Part One - What is API and How to Use It
+    1 - API (Application Programming Interface): An API is a set of rules and protocols that allows different software applications to communicate with each other. It defines how requests and responses should be structured, allowing developers to interact with external services and access data or functionality provided by those services.
+    2 - HTTP Requests: HTTP requests are used to communicate with APIs over the internet. The most common types of HTTP requests are GET (to retrieve data), POST (to send data), PUT (to update data), and DELETE (to remove data). In Flutter, you can use the http package to make HTTP requests and interact with APIs.
+    3 - HTTP Response: An HTTP response is the data sent back by the server in response to an HTTP request. It typically includes a status code (indicating the success or failure of the request) and a body (containing the data or message returned by the server). In Flutter, you can handle HTTP responses using the http package and process the data accordingly.
+    4 - HTTP Methods: HTTP methods are the different types of requests that can be made to an API. The most common HTTP methods are GET, POST, PUT, and DELETE, each serving a specific purpose in interacting with the API. GET is used to retrieve data, POST is used to send data, PUT is used to update existing data, and DELETE is used to remove data from the server.
+    5 - JSON (JavaScript Object Notation): JSON is a lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate. It is commonly used for transmitting data between a server and a client in web applications. In Flutter, you can use the dart:convert library to encode and decode JSON data when working with APIs.
+
+  Part Two - Working with APIs in Flutter
+    6 - Using the Dio Package: The Dio package is a powerful HTTP client for Dart that provides features such as interceptors, global configuration, and support for various request types. It allows you to make HTTP requests and handle responses in a more efficient and customizable way compared to the http package. In Flutter, you can use the Dio package to interact with APIs and manage your network requests effectively.
+    7 - Fetching Data from an API: To fetch data from an API in Flutter, you can use the Dio package to make a GET request to the desired endpoint. You can then handle the response by checking the status code and processing the returned data accordingly. This typically involves parsing the JSON response and updating the UI to display the fetched data.
+    8 - Displaying Data in a ListView: Once you have fetched data from an API, you can display it in a ListView widget in Flutter. The ListView widget allows you to create a scrollable list of items, which can be built using the ListView.builder constructor for efficient rendering. You can pass the fetched data to the ListView.builder and use it to create individual list items, allowing users to view the data in a structured and organized manner.
+    9 - Error Handling: When working with APIs in Flutter, it is important to implement error handling to manage potential issues that may arise during network requests. This can include handling exceptions, checking for non-successful status codes, and providing feedback to the user when an error occurs. The Dio package provides built-in support for error handling, allowing you to catch and manage errors effectively in your API interactions.
+    10 - Best Practices for API Integration: When integrating APIs in Flutter, it is important to follow best practices to ensure a smooth and efficient experience. This includes using asynchronous programming to handle network requests, implementing proper error handling, optimizing performance by caching data when appropriate, and keeping your code organized and maintainable. Additionally, it is important to consider security aspects when working with APIs, such as using secure connections (HTTPS) and handling sensitive data appropriately.
+
+* */
+
+/*
+Session 11 Topics explanation:
+  Part One -cubit Architecture in Flutter
+    1 - Understanding Cubit Architecture: In Flutter, cubit Architecture follows the principles of the Bloc (Business Logic Component) pattern, a predictable state management solution. It separates the business logic from the UI, allowing for better testability and maintainability. Cubit acts as an intermediary between the UI and the data layer, managing the state of the application and notifying the UI when changes occur.
+    2 - Creating a Cubit: To create a cubit in Flutter, you need to extend the Cubit class provided by the flutter_bloc package. This class takes two generic parameters: the first for the state type and the second for the events type (though cubits typically use events implicitly through functions). The cubit class contains functions that emit new states in response to events or user interactions.
+    3 - Implementing State Management: State management in cubit is achieved through the emit() function, which is used to transition from one state to another. When a cubit needs to update its state, it calls emit() with the new state object. This triggers a rebuild of the UI widgets that listen to the cubit, ensuring that the UI always reflects the current state of the application.
+    4 - Using Events in Cubit: While cubits don't use explicit event classes like the Bloc pattern, they handle events through their functions. Each function in the cubit represents an event that can be triggered by the UI. For example, a cubit for a counter application might have functions like increment() and decrement(), which are called when the user interacts with the corresponding buttons.
+    5 - Integrating Cubit with UI: To integrate cubit with the UI, you can use the BlocProvider widget to provide the cubit to the widget tree. Then, you can use the BlocBuilder widget to listen to the cubit's state and rebuild the UI accordingly. BlocBuilder takes a builder function that receives the current state and returns the widget to be displayed.
+
+  Part Two - Advanced Features and Best Practices
+    6 - Adding Dependencies: To use cubit in your Flutter application, you need to add the flutter_bloc package as a dependency in your pubspec.yaml file. This package provides the necessary classes and tools for implementing cubit architecture. Make sure to run flutter pub get after adding the dependency to download the package and its dependencies.
+    7 - Cubit and Repository Interaction: In a typical cubit architecture, the cubit interacts with a repository to fetch or manipulate data. The repository acts as a data source, abstracting the details of where the data comes from (e.g., API, database). The cubit calls the repository's methods to get or update data and then emits the appropriate state to notify the UI of the changes.
+    8 - Handling Asynchronous Operations: Cubits often need to handle asynchronous operations, such as network requests or database queries. To do this, you can use the async and await keywords in your cubit functions. The emit() function can be called within these asynchronous functions to update the state once the operation completes.
+    9 - Error Handling in Cubit: Robust error handling is crucial in cubit architecture. You should wrap your asynchronous operations in try-catch blocks to handle potential errors gracefully. When an error occurs, you can emit an error state that informs the UI about the failure and provides appropriate feedback to the user.
+    10 - Best Practices: When working with cubit in Flutter, it is important to follow best practices such as keeping your cubits focused on a single responsibility, using meaningful state names, providing initial states, and testing your cubits thoroughly. Additionally, consider using equatable for state classes to ensure proper state comparison and avoid unnecessary rebuilds.
+* */
+
+/*
+Session 13 Topics explanation:
+
+  Part One - Introduction to Local Storage
+
+    1 - Why Store Data:
+    Save user info, settings, progress, and offline data.
+
+    2 - Local vs Remote Storage:
+    Local storage saves data on the device.
+    Remote storage saves data on cloud servers.
+
+    3 - Local Storage:
+    Data stored inside the device and remains after closing the app.
+
+    4 - Benefits of Local Storage:
+    Faster access, offline support, and better user experience.
+
+  Part Two - SharedPreferences
+
+    5 - SharedPreferences:
+    Simple key-value storage for small data like settings and login status.
+
+    6 - How SharedPreferences Works:
+    Stores data using keys and values such as String, int, and bool.
+
+    7 - SharedPreferences Limitations:
+    Does not support complex objects or large data.
+
+  Part Three - Hive Database
+
+    8 - Hive Database:
+    Fast NoSQL database for storing objects and structured data.
+
+    9 - Hive Boxes:
+    Boxes are containers used to store Hive data.
+
+    10 - Hive Setup:
+    Initialize Hive, register adapters, and open boxes.
+
+    11 - Hive CRUD Operations:
+      - put() -> Save data
+      - get() -> Read data
+      - delete() -> Remove data
+
+  Part Four - Storage Comparison
+
+    12 - SharedPreferences vs Hive:
+    SharedPreferences for simple data.
+    Hive for complex and structured data.
+
+    13 - When to Use Which:
+    Use SharedPreferences for settings.
+    Use Hive for objects, lists, and offline apps.
+
+*/
 
 
-
-
-
-
-
-
-void main() {
+void main() async {
   // Ensure Flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
-  
 
-
-
-
-
-
+  // Initialize Hive Service
+  await HiveService.init();
 
 
   runApp(const MyApp());
@@ -32,42 +162,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Provide services and cubits to the entire app
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const HomePostsScreen(),
-    );
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// This widget decides whether to show the Login screen or the Home screen
-class AuthWrapper extends StatelessWidget {
-  const AuthWrapper({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AuthCubit, AuthState>(
-      builder: (context, state) {
-        if (state is Authenticated) {
-          return const HomeScreen();
-        } else {
-          return LoginScreen();
-        }
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => PostsCubit(ApiService())..fetchPosts(),
+        ),
+        BlocProvider(create: (context) => SavedPostsCubit(HiveService())),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MainLayout(),
+      ),
     );
   }
 }

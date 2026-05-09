@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../models/post_model.dart';
+import '../models/post_model_practise.dart';
 
-class PostCard extends StatelessWidget {
-  final PostModel post;
+class PostCardPractise extends StatelessWidget {
+  final PostModelPractise post;
   final VoidCallback onTap;
   final VoidCallback? onSave;
 
-  const PostCard({
+  const PostCardPractise({
     super.key,
     required this.post,
     required this.onTap,
